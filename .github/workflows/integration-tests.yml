@@ -1,0 +1,39 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  integration-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build with Gradle
+      run: ./gradlew build -x test
+
+    - name: Run Integration Tests
+      run: ./gradlew :coffee-shop-integration-tests:test
+
+    - name: Upload Test Reports
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-reports
+        path: |
+          coffee-shop-integration-tests/build/reports/tests/
+          coffee-shop-integration-tests/build/test-results/

@@ -1,0 +1,24 @@
+ktor:
+  application:
+    modules:
+      - com.motycka.edu.ApplicationKt.module
+  deployment:
+    port: 8080  # Use a fixed port that matches the container's exposed port
+    host: "0.0.0.0"
+
+database:
+  jdbcUrl: "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;"
+  user: "sa"
+  password: ""
+
+serialization:
+  json:
+    prettyPrint: true
+    isLenient: true
+
+security:
+  auth:
+    realm: "Item API"
+    admin:
+      username: "admin"
+      password: "password"

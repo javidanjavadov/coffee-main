@@ -1,0 +1,16 @@
+ktor:
+  deployment:
+    port: 8080
+
+jwt:
+  secret: "secret"
+  issuer: "menu-api"
+  audience: "menu-api-audience"
+  realm: "Menu API"
+  expirationTime: 3600000 # 1 hour in milliseconds
+
+auth:
+  basic:
+    realm: "Menu API"
+    username: "admin"
+    password: "password"

@@ -1,0 +1,46 @@
+### Login to get JWT token
+POST http://localhost:8080/api/login
+Content-Type: application/json
+
+{
+  "username": "staff",
+  "password": "password"
+}
+
+### Get all menu items using JWT token
+# Replace the token with the one received from the login request
+GET http://localhost:8080/api/menuitems
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZW51LWFwaS1hdWRpZW5jZSIsImlzcyI6Im1lbnUtYXBpIiwidXNlcklkIjoxLCJjdXN0b21lcklkIjoxLCJyb2xlIjoiU1RBRkYiLCJleHAiOjE3NTAzNDIyMzZ9.pwu7AiLDrJ1yN4JB1nSjI8dCoEDIlz1_Tu0hLeuvHJI
+
+### Get menu item by ID using JWT token
+# Replace the token with the one received from the login request
+GET http://localhost:8080/api/menuitems/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZW51LWFwaS1hdWRpZW5jZSIsImlzcyI6Im1lbnUtYXBpIiwicHJpbmNpcGFsIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE3NTAyMzk3ODR9.0XMhHiE5KLbXxscKlzZev-dt0VMoVOxQTAuw-zTu8ws
+
+### Create new menu item using JWT token
+# Replace the token with the one received from the login request
+POST http://localhost:8080/api/menuitems
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZW51LWFwaS1hdWRpZW5jZSIsImlzcyI6Im1lbnUtYXBpIiwicHJpbmNpcGFsIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE3NTAyMzk3ODR9.0XMhHiE5KLbXxscKlzZev-dt0VMoVOxQTAuw-zTu8ws
+Content-Type: application/json
+
+{
+  "name": "Cappuccino",
+  "description": "Espresso with steamed milk and foam",
+  "price": 3.99
+}
+
+### Update menu item using JWT token
+PUT http://localhost:8080/api/menuitems/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZW51LWFwaS1hdWRpZW5jZSIsImlzcyI6Im1lbnUtYXBpIiwicHJpbmNpcGFsIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE3NTAyMzk3ODR9.0XMhHiE5KLbXxscKlzZev-dt0VMoVOxQTAuw-zTu8ws
+Content-Type: application/json
+
+{
+  "name": "Cappuccino De Luxe",
+  "description": "Espresso with steamed milk and foam",
+  "price": 3.99
+}
+
+
+### Delete menu item using JWT token
+DELETE http://localhost:8080/api/menuitems/6
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJtZW51LWFwaS1hdWRpZW5jZSIsImlzcyI6Im1lbnUtYXBpIiwicHJpbmNpcGFsIjoiYWRtaW4iLCJyb2xlIjoiQURNSU4iLCJleHAiOjE3NTAyMzk3ODR9.0XMhHiE5KLbXxscKlzZev-dt0VMoVOxQTAuw-zTu8ws

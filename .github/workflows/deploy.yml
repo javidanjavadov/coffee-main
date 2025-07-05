@@ -1,0 +1,61 @@
+name: Coffee Shop Deployment
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v3
+      with:
+        java-version: '21'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    - name: Build Fat JAR
+      run: ./gradlew buildFatJar
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+    - name: Build and push Docker image with version tag
+      uses: docker/build-push-action@v4
+      with:
+        context: ./coffee-shop-application
+        push: true
+        tags: |
+          ghcr.io/${{ github.repository_owner }}/coffee-shop-application:latest
+          ghcr.io/${{ github.repository_owner }}/coffee-shop-application:${{ steps.get_version.outputs.VERSION }}
+        file: ./coffee-shop-application/Dockerfile
+
+    # This is a placeholder for actual deployment steps
+    # Replace with actual deployment logic for your environment
+    - name: Deploy to production
+      run: |
+        echo "Deploying version ${{ steps.get_version.outputs.VERSION }} to production"
+        # Add actual deployment commands here
+        # For example:
+        # - Deploy to Kubernetes
+        # - Deploy to a cloud provider
+        # - Run database migrations
+        # - etc.
