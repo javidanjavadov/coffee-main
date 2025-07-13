@@ -46,3 +46,9 @@ tasks.test {
 kotlin {
     jvmToolchain(21)
 }
+
+tasks.matching { it.name == "shadowJar" }.configureEach {
+    enabled = false
+}
+
+
